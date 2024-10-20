@@ -2,17 +2,17 @@ tn stands for 'tiny'. It is such an experimental programming language that still
 
 ### Syntax (second try)
 **Notes**
-    - ?smth means that smth is optional
-    - +smth means that 1 or more occurencies of smth
-    - \*smth means any number of occurencies of smth
-    - (smth | smth_else) means occurence of smth or smth_else
-    - "not" means an occurence of a "not" keyword in a code
-    - indent means indentation level up (it is not just a '\t' symbol or so)
-    - everything that is inside indent and unindent must have a newline at end
-    - unindent means indentation level down
-    - () means grouping
-    - [a-z] means all characters from 'a' to 'z' (inclusively)
-    - # comments start with hash
+- ?smth means that smth is optional
+- +smth means that 1 or more occurencies of smth
+- \*smth means any number of occurencies of smth
+- (smth | smth_else) means occurence of smth or smth_else
+- "not" means an occurence of a "not" keyword in a code
+- indent means indentation level up (it is not just a '\t' symbol or so)
+- everything that is inside indent and unindent must have a newline at end
+- unindent means indentation level down
+- () means grouping
+- [a-z] means all characters from 'a' to 'z' (inclusively)
+- # comments start with hash
 ```
 file: +def
 def: "+" ?name *def_param indent call *def unindent
