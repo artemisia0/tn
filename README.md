@@ -1,5 +1,38 @@
-tn stands for 'tiny'. It is such an experimental programming language.
+tn stands for 'tiny'. It is such an experimental programming language that still is under construction.
 
+### Syntax (second try)
+**Notes**
+    - ?smth means that smth is optional
+    - +smth means that 1 or more occurencies of smth
+    - \*smth means any number of occurencies of smth
+    - (smth | smth_else) means occurence of smth or smth_else
+    - "not" means an occurence of a "not" keyword in a code
+    - indent means indentation level up (it is not just a '\t' symbol or so)
+    - everything that is inside indent and unindent must have a newline at end
+    - unindent means indentation level down
+    - () means grouping
+    - [a-z] means all characters from 'a' to 'z' (inclusively)
+    - # comments start with hash
+```
+file: +def
+def: "+" ?name *def_param indent call *def unindent
+call: name ?(indent *call_param *named_call_param unindent)
+name: [_a-zA-Z]*[_a-zA-Z0-9]
+def_param: name  # and maybe there will be a type after slash like '/int'
+call_param: object
+named_call_param: name ":" object
+object: (def | call | name | literal)
+literal: (array | map | int | flt | str)
+str: (fmt_str | raw_str)
+fmt_str: "\"" any_character_except_double_quote_and_newlines "\""
+raw_str: "'" any_character_except_single_quote "'"
+array: "[" ?(indent +array_item unindent) "]"
+map: "{" ?(indent +map_item unindent) "}"
+int: +[0-9]
+flt: +[0-9]"."+[0-9]
+array_item: object
+map_item: name":"object
+```
 
 ### Syntax
 ```
