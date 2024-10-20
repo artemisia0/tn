@@ -12,7 +12,7 @@ tn stands for 'tiny'. It is such an experimental programming language that still
 - unindent means indentation level down
 - () means grouping
 - [a-z] means all characters from 'a' to 'z' (inclusively)
-- # comments start with hash
+- \# comments start with hash
 ```
 file: +def
 def: "+" ?name *def_param indent call *def unindent
