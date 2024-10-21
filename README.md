@@ -1,4 +1,20 @@
-tn stands for 'tiny'. It is such an experimental programming language that still is under construction.
+tn stands for 'tiny'. It is such an experimental object-oriented declarative programming language that still is under construction.
+
+### Usage
+```bash
+tn build  # it builds the project with respect to build.tn file
+tn run  # it runs the project with respect to run.tn file
+```
+
+### Compiler design
+- Lexer
+- Indentation parser
+- Parser
+- Type inference
+- Bytecode generation (producing .tnb files)
+
+### Virtual machine design
+- Will be written in future...
 
 ### Syntax (second try)
 **Notes**
@@ -17,7 +33,7 @@ tn stands for 'tiny'. It is such an experimental programming language that still
 file: +def
 def: "+" ?name *def_param indent call *def unindent
 call: name ?(indent *call_param *named_call_param unindent)
-name: [_a-zA-Z]*[_a-zA-Z0-9]
+name: [_a-zA-Z]*[a-zA-Z0-9]
 def_param: name  # and maybe there will be a type after slash like '/int'
 call_param: object
 named_call_param: name ":" object
@@ -32,6 +48,121 @@ int: +[0-9]
 flt: +[0-9]"."+[0-9]
 array_item: object
 map_item: name":"object
+```
+
+### Examples
+```
+# Hello world program
+
++main
+    print<"Hello, World!">
+```
+
+```
+# Sum of three numbers (having sumOfTwoNumbers object)
+
++sumOfThreeNumbers a b c
+    sumOfTwoNumbers
+        c
+        sumOfTwoNumbers
+            a
+            b
+```
+
+```
+# Control flow
+
++testIF
+    if
+        not<true>
+        print<"This will not be printed">
+        if
+            true
+            print<"This will be printed">
+            print<"This won't be printed">
+
++testWhile
+    while
+        not<false>
+        print<"This will be printed infinite number of times">
+
+# There are also foreach loops and maybe smth else...
+```
+
+```
+# Something like a fizz buzz
+
++main
+    foreach
+        range<1 100>
+        + i  # Anonymous object that takes i as a parameter
+            if
+                mod<i 3>.eq<0>.and<mod<i 5>.eq<0>>
+                print<"FizzBuzz">
+                if
+                    mod<i 3>.eq<0>
+                    print<"Fizz">
+                    if
+                        mod<i 5>.eq<0>
+                        print<"Buzz">
+                        print<i>
+```
+
+```
+# Literals example
+
++main
+    seq
+        print
+            [  # array
+                "Hello"
+                "World"
+            ]
+        print
+            {  # map
+                "key1": "value1"
+                "key2": "value2"
+                14.2: 98
+                'ahoj
+                multiline raw string
+                ': "and this is fmt string"
+            }
+        print
+            1  # int
+        print
+            1.0  # float
+        print
+            "Hello, World!"  # fmt string
+        print  # raw string example
+            'Hello, World!  # this is not a comment because it's in raw str
+            This is a multiline string'
+            ...
+            '
+```
+
+```
+# Decoration example (like a single inheritance)
+
+userData
+    {
+        "name": _name  # accessing child of current object with _ prefix
+        "age": _age
+    }
+    +name
+        "Artem"  # hardcoded values but it's okay for our example
+    +age
+        18
+
++userDataWithAddress
+    {
+        "address": _address
+        ..._    # accessing decoratee (userData) object with '_'
+                # '...' means destructuring like in JS
+    }
+    +  # decoration leveraged with an anonymous object
+        userData
+    +address
+        "Some address"
 ```
 
 ### Syntax
